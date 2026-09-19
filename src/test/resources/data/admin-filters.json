@@ -1,0 +1,12 @@
+{
+  "activeAdmin": {
+    "role": "Admin",
+    "status": "Enabled",
+    "searchQuery": "Admin"
+  },
+  "essUser": {
+    "role": "ESS",
+    "status": "Enabled",
+    "searchQuery": "ESS"
+  }
+}

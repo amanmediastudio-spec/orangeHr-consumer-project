@@ -1,0 +1,37 @@
+# ==============================================================================
+# Standalone Consumer Project - Git Ignore Rules
+# ==============================================================================
+
+# Build Output
+target/
+**/target/
+
+# Test Reports, Screenshots & Logs
+allure-results/
+allure-report/
+test-output/
+screenshots/
+**/screenshots/
+logs/
+*.log
+**/*.log
+element-healing-history.json
+
+# IDE & Editor Files
+.idea/
+*.iml
+.vscode/
+.settings/
+.project
+.classpath
+bin/
+
+# OS-Specific Files
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Secrets & Environment Overrides
+.env
+*.env.local
+secrets.properties
