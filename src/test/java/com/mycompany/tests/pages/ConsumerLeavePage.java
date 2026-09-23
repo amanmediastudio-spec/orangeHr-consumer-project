@@ -20,7 +20,7 @@ public class ConsumerLeavePage extends OrangeHrmBasePage {
         register("leaveListHeader", "Leave List page title header",
                 By.xpath("//h5[contains(.,'Leave List')] | //h6[contains(.,'Leave')]"));
         register("applyLeaveTab", "Apply leave top navigation tab",
-                By.xpath("//a[contains(@class,'oxd-topbar-body-nav-tab-link') and normalize-space()='Apply']"));
+                By.xpath("//a[normalize-space()='Leave']"));
         register("myLeaveTab", "My Leave top navigation tab",
                 By.xpath("//a[contains(@class,'oxd-topbar-body-nav-tab-link') and normalize-space()='My Leave']"));
         register("entitlementsMenu", "Entitlements top navigation menu", By
