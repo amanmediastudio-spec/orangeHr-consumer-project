@@ -33,7 +33,7 @@ public class ConsumerMyInfoPage extends OrangeHrmBasePage {
         register("dependentsTab", "Dependents navigation tab in My Info",
                 By.xpath("//a[contains(@href,'dependents') or normalize-space()='Dependents']"));
         register("savePersonalDetailsBtn", "Save button for personal details form",
-                By.xpath("(//button[@type='submit' and contains(.,'Save')])[1]"));
+                By.xpath("//a[contains(normalize-space(),'Personal Details')]"));
     }
 
     public void navigateToMyInfo() {
