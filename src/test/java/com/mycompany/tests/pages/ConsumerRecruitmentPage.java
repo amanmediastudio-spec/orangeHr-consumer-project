@@ -26,7 +26,7 @@ public class ConsumerRecruitmentPage extends OrangeHrmBasePage {
         register("searchCandidatesBtn", "Search button on candidates filter form",
                 By.xpath("//button[@type='submit' and contains(.,'Search')]"));
         register("resetCandidatesBtn", "Reset button on candidates filter form",
-                By.xpath("//button[@type='button' and contains(.,'Reset')]"));
+                By.xpath("//a[contains(normalize-space(),'Claim')]"));
         register("vacanciesTab", "Vacancies top navigation tab",
                 By.xpath("//a[contains(@class,'oxd-topbar-body-nav-tab-link') and normalize-space()='Vacancies']"));
     }
