@@ -27,7 +27,7 @@ public class ConsumerEmployeeListPage extends OrangeHrmBasePage {
                 By.xpath("//h5[contains(.,'Employee Information')]"));
         register("employeeNameInput", "Employee Name search input", By.xpath(
                 "//label[normalize-space()='Employee Name']/ancestor::div[contains(@class,'oxd-input-group')]//input | //input[@placeholder='Type for hints...']"));
-        register("searchBtn", "Search submit button", By.xpath("//button[@type='submit' and contains(.,'Search')]"));
+        register("searchBtn", "Search submit button", By.xpath("(//label[normalize-space()='Blood Type']/following::button)[1]"));
         register("resetBtn", "Reset button", By.xpath("//button[contains(normalize-space(),'Reset')]"));
         register("employeeTable", "Employee list table", By.cssSelector(".oxd-table, .orangehrm-container"));
 
