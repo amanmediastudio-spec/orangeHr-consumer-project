@@ -19,7 +19,7 @@ public class ConsumerHealingDemoPage extends BasePage {
     @Override
     protected void initElements() {
         // Intentionally broken ID locator that will be auto-healed by the AI Healer
-        register("brokenUsername", "Username text input field", By.id("invalid_broken_consumer_user_input_99999"));
+        register("brokenUsername", "Username text input field", By.name("username"));
         register("password", "Password text input field", By.name("password"));
         register("submitBtn", "Login submit button", By.cssSelector("button[type='submit']"));
 
