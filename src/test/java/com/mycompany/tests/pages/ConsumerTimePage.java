@@ -1,13 +1,23 @@
 package com.mycompany.tests.pages;
 
+import com.automation.playwright.PlaywrightBasePage;
+import com.automation.playwright.PlaywrightPageElement;
 import com.automation.utils.ElementActions;
-import org.openqa.selenium.By;
 
 /**
- * Consumer Page Object for Time & Attendance Module.
- * All locators are intentionally broken to validate AI Self-Healing.
+ * Migrated Playwright Page Object strictly compliant with the Platform SDK.
+ * Original Source: ConsumerTimePage
  */
 public class ConsumerTimePage extends OrangeHrmBasePage {
+
+    // Registered Playwright Elements
+    public PlaywrightPageElement timeMenu;
+    public PlaywrightPageElement timeModuleHeader;
+    public PlaywrightPageElement timesheetsMenu;
+    public PlaywrightPageElement attendanceMenu;
+    public PlaywrightPageElement punchInOutLink;
+    public PlaywrightPageElement employeeNameInput;
+    public PlaywrightPageElement viewTimesheetBtn;
 
     public ConsumerTimePage() {
         super("ConsumerTimePage");
@@ -15,41 +25,35 @@ public class ConsumerTimePage extends OrangeHrmBasePage {
 
     @Override
     protected void initElements() {
-        register("timeMenu", "Time left navigation menu item",
-                By.xpath("//span[normalize-space()='Time'] | //a[contains(@href, 'time')]"));
-        register("timeModuleHeader", "Time module section header title",
-                By.xpath("//h5[contains(.,'Timesheet')] | //h6[contains(.,'Time')]"));
-        register("timesheetsMenu", "Timesheets top navigation menu dropdown",
-                By.xpath("//span[contains(@class,'oxd-topbar-body-nav-tab-item') and normalize-space()='Timesheets']"));
-        register("attendanceMenu", "Attendance top navigation menu dropdown",
-                By.xpath("//span[contains(@class,'oxd-topbar-body-nav-tab-item') and normalize-space()='Attendance']"));
-        register("punchInOutLink", "Punch In Out attendance navigation link",
-                By.xpath("//a[contains(@class,'oxd-topbar-body-nav-tab-link') and normalize-space()='Punch In/Out']"));
-        register("employeeNameInput", "Employee Name input field on Timesheets page",
-                By.xpath("//input[@placeholder='Type for hints...']"));
-        register("viewTimesheetBtn", "View button on employee timesheets page",
-                By.xpath("//button[@type='submit' and contains(.,'View')]"));
+        timeMenu = register("timeMenu", "Time left navigation menu item", "//span[normalize-space()='Time'] | //a[contains(@href, 'time')]");
+        timeModuleHeader = register("timeModuleHeader", "Time module section header title", "//h5[contains(.,'Timesheet')] | //h6[contains(.,'Time')]");
+        timesheetsMenu = register("timesheetsMenu", "Timesheets top navigation menu dropdown", "//span[contains(@class,'oxd-topbar-body-nav-tab-item') and normalize-space()='Timesheets']");
+        attendanceMenu = register("attendanceMenu", "Attendance top navigation menu dropdown", "//span[contains(@class,'oxd-topbar-body-nav-tab-item') and normalize-space()='Attendance']");
+        punchInOutLink = register("punchInOutLink", "Punch In Out attendance navigation link", "//a[contains(@class,'oxd-topbar-body-nav-tab-link') and normalize-space()='Punch In/Out']");
+        employeeNameInput = register("employeeNameInput", "Employee Name input field on Timesheets page", "//input[@placeholder='Type for hints...']");
+        viewTimesheetBtn = register("viewTimesheetBtn", "View button on employee timesheets page", "//button[@type='submit' and contains(.,'View')]");
     }
 
     public void navigateToTimeModule() {
         ensureSidepanelExpanded();
-        click(getElement("timeMenu"));
+        click(timeMenu);
         ensureFilterPanelExpanded();
     }
 
     public void navigateToPunchInOut() {
-        click(getElement("attendanceMenu"));
+        click(attendanceMenu);
         ElementActions.pause(500);
-        click(getElement("punchInOutLink"));
+        click(punchInOutLink);
         ElementActions.pause(1000);
     }
 
     public void searchEmployeeTimesheet(String empName) {
         ensureFilterPanelExpanded();
         if (empName != null && !empName.isEmpty()) {
-            sendKeys(getElement("employeeNameInput"), empName);
+            fill(employeeNameInput, empName);
         }
-        click(getElement("viewTimesheetBtn"));
+        click(viewTimesheetBtn);
         ElementActions.pause(1000);
     }
+
 }

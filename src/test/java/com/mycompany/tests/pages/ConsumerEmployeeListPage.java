@@ -1,19 +1,28 @@
 package com.mycompany.tests.pages;
 
-import com.automation.components.AgGridComponent;
-import com.automation.components.ButtonComponent;
-import org.openqa.selenium.By;
+import com.automation.playwright.PlaywrightBasePage;
+import com.automation.playwright.PlaywrightPageElement;
+import com.automation.playwright.components.PlaywrightButtonComponent;
+import com.automation.playwright.components.PlaywrightAgGridComponent;
 
 /**
- * Consumer Page Object for PIM Employee Directory:
- * Demonstrates navigating to the PIM module, interacting with forms, and
- * inspecting table grids.
+ * Migrated Playwright Page Object strictly compliant with the Platform SDK.
+ * Original Source: ConsumerEmployeeListPage
  */
 public class ConsumerEmployeeListPage extends OrangeHrmBasePage {
 
-    public ButtonComponent searchBtn;
-    public ButtonComponent resetBtn;
-    public AgGridComponent employeeTable;
+    // Registered Playwright Elements
+    public PlaywrightPageElement pimMenu;
+    public PlaywrightPageElement employeeListTitle;
+    public PlaywrightPageElement employeeNameInput;
+    public PlaywrightPageElement searchBtn;
+    public PlaywrightPageElement resetBtn;
+    public PlaywrightPageElement employeeTable;
+
+    // SDK UI Components
+    public PlaywrightButtonComponent searchBtn;
+    public PlaywrightButtonComponent resetBtn;
+    public PlaywrightAgGridComponent employeeTable;
 
     public ConsumerEmployeeListPage() {
         super("ConsumerEmployeeListPage");
@@ -21,35 +30,34 @@ public class ConsumerEmployeeListPage extends OrangeHrmBasePage {
 
     @Override
     protected void initElements() {
-        register("pimMenu", "PIM navigation menu item",
-                By.xpath("//span[normalize-space()='PIM'] | //a[contains(@href, 'pim')]"));
-        register("employeeListTitle", "Employee Information header title",
-                By.xpath("//h5[contains(.,'Employee Information')]"));
-        register("employeeNameInput", "Employee Name search input", By.xpath(
-                "//label[normalize-space()='Employee Name']/ancestor::div[contains(@class,'oxd-input-group')]//input | //input[@placeholder='Type for hints...']"));
-        register("searchBtn", "Search submit button", By.xpath("//button[@type='submit' and contains(.,'Search')]"));
-        register("resetBtn", "Reset button", By.xpath("//button[contains(normalize-space(),'Reset')]"));
-        register("employeeTable", "Employee list table", By.cssSelector(".oxd-table, .orangehrm-container"));
+        pimMenu = register("pimMenu", "PIM navigation menu item", "//span[normalize-space()='PIM'] | //a[contains(@href, 'pim')]");
+        employeeListTitle = register("employeeListTitle", "Employee Information header title", "//h5[contains(.,'Employee Information')]");
+        employeeNameInput = register("employeeNameInput", "Employee Name search input", "//label[normalize-space()='Employee Name']/ancestor::div[contains(@class,'oxd-input-group')]//input | //input[@placeholder='Type for hints...']");
+        searchBtn = register("searchBtn", "Search submit button", "//button[@type='submit' and contains(.,'Search')]");
+        resetBtn = register("resetBtn", "Reset button", "//button[contains(normalize-space(),'Reset')]");
+        employeeTable = register("employeeTable", "Employee list table", ".oxd-table, .orangehrm-container");
 
-        searchBtn = initComponent(ButtonComponent.class, getElement("searchBtn"));
-        resetBtn = initComponent(ButtonComponent.class, getElement("resetBtn"));
-        employeeTable = initComponent(AgGridComponent.class, getElement("employeeTable"));
+        // Component Initialization
+        searchBtn = initComponent(PlaywrightButtonComponent.class, "searchBtn", ".searchbtn");
+        resetBtn = initComponent(PlaywrightButtonComponent.class, "resetBtn", ".resetbtn");
+        employeeTable = initComponent(PlaywrightAgGridComponent.class, "employeeTable", ".employeetable");
     }
 
     public void navigateToPimModule() {
         ensureSidepanelExpanded();
-        click(getElement("pimMenu"));
+        click(pimMenu);
         waitForVisibility(getElement("employeeListTitle"), 15);
         ensureFilterPanelExpanded();
     }
 
     public void searchEmployeeByName(String name) {
         ensureFilterPanelExpanded();
-        sendKeys(getElement("employeeNameInput"), name);
-        searchBtn.click();
+        fill(employeeNameInput, name);
+        click(searchBtn);
     }
 
     public boolean isTableDisplayed() {
         return employeeTable.getRowCount() >= 0;
     }
+
 }

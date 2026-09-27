@@ -1,13 +1,23 @@
 package com.mycompany.tests.pages;
 
+import com.automation.playwright.PlaywrightBasePage;
+import com.automation.playwright.PlaywrightPageElement;
 import com.automation.utils.ElementActions;
-import org.openqa.selenium.By;
 
 /**
- * Consumer Page Object for Recruitment Module.
- * All locators are intentionally broken to validate AI Self-Healing.
+ * Migrated Playwright Page Object strictly compliant with the Platform SDK.
+ * Original Source: ConsumerRecruitmentPage
  */
 public class ConsumerRecruitmentPage extends OrangeHrmBasePage {
+
+    // Registered Playwright Elements
+    public PlaywrightPageElement recruitmentMenu;
+    public PlaywrightPageElement candidatesHeader;
+    public PlaywrightPageElement addCandidateBtn;
+    public PlaywrightPageElement candidateNameInput;
+    public PlaywrightPageElement searchCandidatesBtn;
+    public PlaywrightPageElement resetCandidatesBtn;
+    public PlaywrightPageElement vacanciesTab;
 
     public ConsumerRecruitmentPage() {
         super("ConsumerRecruitmentPage");
@@ -15,50 +25,44 @@ public class ConsumerRecruitmentPage extends OrangeHrmBasePage {
 
     @Override
     protected void initElements() {
-        register("recruitmentMenu", "Recruitment left navigation menu item",
-                By.xpath("//span[normalize-space()='Recruitment'] | //a[contains(@href, 'recruitment')]"));
-        register("candidatesHeader", "Candidates section header title",
-                By.xpath("//h5[contains(.,'Candidates')] | //h6[contains(.,'Recruitment')]"));
-        register("addCandidateBtn", "Add candidate button in recruitment module",
-                By.xpath("//button[contains(.,'Add')]"));
-        register("candidateNameInput", "Candidate Name text input field",
-                By.xpath("//input[@placeholder='Type for hints...']"));
-        register("searchCandidatesBtn", "Search button on candidates filter form",
-                By.xpath("//button[@type='submit' and contains(.,'Search')]"));
-        register("resetCandidatesBtn", "Reset button on candidates filter form",
-                By.xpath("//button[@type='button' and contains(.,'Reset')]"));
-        register("vacanciesTab", "Vacancies top navigation tab",
-                By.xpath("//a[contains(@class,'oxd-topbar-body-nav-tab-link') and normalize-space()='Vacancies']"));
+        recruitmentMenu = register("recruitmentMenu", "Recruitment left navigation menu item", "//span[normalize-space()='Recruitment'] | //a[contains(@href, 'recruitment')]");
+        candidatesHeader = register("candidatesHeader", "Candidates section header title", "//h5[contains(.,'Candidates')] | //h6[contains(.,'Recruitment')]");
+        addCandidateBtn = register("addCandidateBtn", "Add candidate button in recruitment module", "//button[contains(.,'Add')]");
+        candidateNameInput = register("candidateNameInput", "Candidate Name text input field", "//input[@placeholder='Type for hints...']");
+        searchCandidatesBtn = register("searchCandidatesBtn", "Search button on candidates filter form", "//button[@type='submit' and contains(.,'Search')]");
+        resetCandidatesBtn = register("resetCandidatesBtn", "Reset button on candidates filter form", "//button[@type='button' and contains(.,'Reset')]");
+        vacanciesTab = register("vacanciesTab", "Vacancies top navigation tab", "//a[contains(@class,'oxd-topbar-body-nav-tab-link') and normalize-space()='Vacancies']");
     }
 
     public void navigateToRecruitmentModule() {
         ensureSidepanelExpanded();
-        click(getElement("recruitmentMenu"));
+        click(recruitmentMenu);
         ensureFilterPanelExpanded();
     }
 
     public void clickAddCandidate() {
-        click(getElement("addCandidateBtn"));
+        click(addCandidateBtn);
         ElementActions.pause(1000);
     }
 
     public void filterCandidates(String name) {
         ensureFilterPanelExpanded();
         if (name != null && !name.isEmpty()) {
-            sendKeys(getElement("candidateNameInput"), name);
+            fill(candidateNameInput, name);
         }
-        click(getElement("searchCandidatesBtn"));
+        click(searchCandidatesBtn);
         ElementActions.pause(1000);
     }
 
     public void resetCandidateFilters() {
         ensureFilterPanelExpanded();
-        click(getElement("resetCandidatesBtn"));
+        click(resetCandidatesBtn);
         ElementActions.pause(1000);
     }
 
     public void navigateToVacanciesTab() {
-        click(getElement("vacanciesTab"));
+        click(vacanciesTab);
         ensureFilterPanelExpanded();
     }
+
 }
