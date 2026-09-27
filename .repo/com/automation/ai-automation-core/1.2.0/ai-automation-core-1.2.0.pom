@@ -1,93 +1,241 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-    <groupId>com.automation</groupId>
-    <artifactId>ai-automation-core</artifactId>
-    <version>1.2.0</version>
-                    <packaging>jar</packaging>
-                    <name>HealQA AI Automation Framework - Core Engine SDK</name>
 
-                    <dependencies>
-                        <dependency>
-                            <groupId>com.automation</groupId>
-                            <artifactId>ai-automation-sdk</artifactId>
-                            <version>1.2.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.seleniumhq.selenium</groupId>
-                            <artifactId>selenium-java</artifactId>
-                            <version>4.21.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.microsoft.playwright</groupId>
-                            <artifactId>playwright</artifactId>
-                            <version>1.45.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>io.cucumber</groupId>
-                            <artifactId>cucumber-java</artifactId>
-                            <version>7.15.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>io.cucumber</groupId>
-                            <artifactId>cucumber-testng</artifactId>
-                            <version>7.15.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>io.cucumber</groupId>
-                            <artifactId>cucumber-picocontainer</artifactId>
-                            <version>7.15.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.testng</groupId>
-                            <artifactId>testng</artifactId>
-                            <version>7.9.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>io.qameta.allure</groupId>
-                            <artifactId>allure-cucumber7-jvm</artifactId>
-                            <version>2.27.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>io.qameta.allure</groupId>
-                            <artifactId>allure-testng</artifactId>
-                            <version>2.27.0</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.logging.log4j</groupId>
-                            <artifactId>log4j-api</artifactId>
-                            <version>2.23.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.apache.logging.log4j</groupId>
-                            <artifactId>log4j-core</artifactId>
-                            <version>2.23.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>commons-io</groupId>
-                            <artifactId>commons-io</artifactId>
-                            <version>2.16.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.fasterxml.jackson.core</groupId>
-                            <artifactId>jackson-databind</artifactId>
-                            <version>2.17.1</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>com.h2database</groupId>
-                            <artifactId>h2</artifactId>
-                            <version>2.3.232</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.jcodec</groupId>
-                            <artifactId>jcodec</artifactId>
-                            <version>0.2.5</version>
-                        </dependency>
-                        <dependency>
-                            <groupId>org.jcodec</groupId>
-                            <artifactId>jcodec-javase</artifactId>
-                            <version>0.2.5</version>
-                        </dependency>
-                    </dependencies>
-                </project>
+    <parent>
+        <groupId>com.automation</groupId>
+        <artifactId>ai-powered-test-automation-platform</artifactId>
+        <version>1.2.0</version>
+        <relativePath>../pom.xml</relativePath>
+    </parent>
+
+    <artifactId>ai-automation-core</artifactId>
+    <packaging>jar</packaging>
+    <name>AI-Powered Test Automation Framework - Core Engine SDK</name>
+    <description>Proprietary Core Automation SDK with AI Self-Healing, 14 UI Components, Resilient Action Engine, Multi-User Session Pooling, and Multi-LLM Orchestration.</description>
+
+    <properties>
+        <maven.compiler.source>17</maven.compiler.source>
+        <maven.compiler.target>17</maven.compiler.target>
+        <maven.compiler.release>17</maven.compiler.release>
+    </properties>
+
+    <dependencies>
+        <!-- Consumer Automation SDK (Public API & Base Classes) -->
+        <dependency>
+            <groupId>com.automation</groupId>
+            <artifactId>ai-automation-sdk</artifactId>
+        </dependency>
+
+        <!-- Selenium Java -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>${selenium.version}</version>
+        </dependency>
+
+        <!-- Microsoft Playwright for Java -->
+        <dependency>
+            <groupId>com.microsoft.playwright</groupId>
+            <artifactId>playwright</artifactId>
+            <version>${playwright.version}</version>
+        </dependency>
+
+        <!-- Cucumber Dependencies -->
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-java</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-testng</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-picocontainer</artifactId>
+        </dependency>
+
+        <!-- TestNG -->
+        <dependency>
+            <groupId>org.testng</groupId>
+            <artifactId>testng</artifactId>
+            <version>${testng.version}</version>
+        </dependency>
+
+        <!-- Allure Reporting -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-cucumber7-jvm</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+        </dependency>
+
+        <!-- Logging: Log4j2 + SLF4J Bridge -->
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-api</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-core</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.logging.log4j</groupId>
+            <artifactId>log4j-slf4j-impl</artifactId>
+            <version>${log4j.version}</version>
+        </dependency>
+
+        <!-- Apache Commons IO -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.16.1</version>
+        </dependency>
+
+        <!-- JCodec: Pure Java MP4 Video Encoding for Selenium Sessions -->
+        <dependency>
+            <groupId>org.jcodec</groupId>
+            <artifactId>jcodec</artifactId>
+            <version>0.2.5</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jcodec</groupId>
+            <artifactId>jcodec-javase</artifactId>
+            <version>0.2.5</version>
+        </dependency>
+
+        <!-- Jackson Databind for JSON Report & Gemini REST Serialization -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-core</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+            <version>2.17.1</version>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+                <includes>
+                    <include>config/license.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>false</filtering>
+                <excludes>
+                    <exclude>config/license.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>${maven.compiler.source}</source>
+                    <target>${maven.compiler.target}</target>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+                    <suiteXmlFiles>
+                        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+                    </suiteXmlFiles>
+                    <testFailureIgnore>${maven.test.failure.ignore}</testFailureIgnore>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <!-- Obfuscated Release Profile: Bytecode Hardening & Anti-Decompiler -->
+        <profile>
+            <id>obfuscate</id>
+            <build>
+                <plugins>
+                    <!-- Disable Sources and Javadocs for Protected Distribution -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <version>3.3.0</version>
+                        <configuration>
+                            <skipSource>true</skipSource>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <version>3.6.3</version>
+                        <configuration>
+                            <skip>true</skip>
+                        </configuration>
+                    </plugin>
+
+                    <!-- ProGuard Bytecode Obfuscator & Optimizer -->
+                    <plugin>
+                        <groupId>com.github.wvengen</groupId>
+                        <artifactId>proguard-maven-plugin</artifactId>
+                        <version>2.6.1</version>
+                        <executions>
+                            <execution>
+                                <phase>package</phase>
+                                <goals>
+                                    <goal>proguard</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <proguardVersion>7.4.2</proguardVersion>
+                            <obfuscate>true</obfuscate>
+                            <injar>${project.build.finalName}.jar</injar>
+                            <outjar>${project.build.finalName}.jar</outjar>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
+                            <proguardInclude>${basedir}/proguard.conf</proguardInclude>
+                            <mappingFileName>proguard_mapping.txt</mappingFileName>
+                            <libs>
+                                <lib>${java.home}/jmods/java.base.jmod</lib>
+                                <lib>${java.home}/jmods/java.logging.jmod</lib>
+                                <lib>${java.home}/jmods/java.desktop.jmod</lib>
+                                <lib>${java.home}/jmods/java.net.http.jmod</lib>
+                                <lib>${java.home}/jmods/jdk.httpserver.jmod</lib>
+                                <lib>${java.home}/jmods/java.sql.jmod</lib>
+                                <lib>${java.home}/jmods/java.sql.rowset.jmod</lib>
+                            </libs>
+                        </configuration>
+                        <dependencies>
+                            <dependency>
+                                <groupId>com.guardsquare</groupId>
+                                <artifactId>proguard-base</artifactId>
+                                <version>7.4.2</version>
+                            </dependency>
+                        </dependencies>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+    </profiles>
+</project>
