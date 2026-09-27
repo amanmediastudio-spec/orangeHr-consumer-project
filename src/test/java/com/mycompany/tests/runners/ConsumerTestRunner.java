@@ -9,7 +9,7 @@ import org.testng.annotations.DataProvider;
 
 @CucumberOptions(
         features = "src/test/resources/features",
-        glue = {"com.mycompany.tests.stepdefinitions", "com.automation.hooks"},
+        glue = {"com.mycompany.tests.stepdefinitions", "com.automation.hooks", "com.automation.playwright.hooks"},
         plugin = {
                 "pretty",
                 "html:target/cucumber-reports/cucumber-pretty.html",
