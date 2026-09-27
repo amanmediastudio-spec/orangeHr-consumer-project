@@ -1,37 +1,38 @@
 package com.mycompany.tests.pages;
 
-import com.automation.driver.DriverManager;
-import com.automation.pages.BasePage;
+import com.automation.playwright.PlaywrightBasePage;
 import com.automation.utils.ElementActions;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-
+import com.microsoft.playwright.Locator;
 import java.util.List;
 
 /**
- * Shared base page for OrangeHRM consumer application modules,
- * containing common layout management routines (sidebar hamburger toggling,
- * filter accordion expansion).
+ * Migrated Playwright Page Object strictly compliant with the Platform SDK.
+ * Original Source: OrangeHrmBasePage
  */
-public abstract class OrangeHrmBasePage extends BasePage {
+public class OrangeHrmBasePage extends PlaywrightBasePage {
 
-    protected OrangeHrmBasePage(String pageName) {
+    public OrangeHrmBasePage() {
+        super("OrangeHrmBasePage");
+    }
+
+    public OrangeHrmBasePage(String pageName) {
         super(pageName);
+    }
+
+    @Override
+    protected void initElements() {
     }
 
     public void ensureSidepanelExpanded() {
         try {
-            WebDriver driver = DriverManager.getDriver();
-            if (driver == null)
-                return;
-            List<WebElement> sidepanels = driver.findElements(By.cssSelector(".oxd-sidepanel"));
-            if (sidepanels.isEmpty() || !sidepanels.get(0).isDisplayed()) {
-                List<WebElement> hamburgers = driver.findElements(By.cssSelector(
-                        ".oxd-topbar-header-hamburger, i.oxd-topbar-header-hamburger, button.oxd-icon-button"));
-                for (WebElement h : hamburgers) {
-                    if (h.isDisplayed()) {
-                        com.automation.utils.ResilientActions.click(h);
+            // WebDriver instance omitted in Playwright
+            // driver null-check omitted in Playwright
+            List<Locator> sidepanels = getPage().locator(".oxd-sidepanel").all();
+            if (sidepanels.isEmpty() || !sidepanels.get(0).isVisible()) {
+                List<Locator> hamburgers = getPage().locator(".oxd-topbar-header-hamburger, i.oxd-topbar-header-hamburger, button.oxd-icon-button").all();
+                for (Locator h : hamburgers) {
+                    if (h.isVisible()) {
+                        h.click();
                         ElementActions.pause(500);
                         break;
                     }
@@ -43,18 +44,16 @@ public abstract class OrangeHrmBasePage extends BasePage {
 
     public void ensureFilterPanelExpanded() {
         try {
-            WebDriver driver = DriverManager.getDriver();
-            if (driver == null)
-                return;
-            List<WebElement> searchBtns = driver.findElements(By.xpath("//button[normalize-space()='Search']"));
-            if (!searchBtns.isEmpty() && searchBtns.get(0).isDisplayed()) {
-                return;
+            // WebDriver instance omitted in Playwright
+            // driver null-check omitted in Playwright
+            List<Locator> searchBtns = getPage().locator("//button[normalize-space()='Search']").all();
+            if (!searchBtns.isEmpty() && searchBtns.get(0).isVisible()) {
+                return ;
             }
-            List<WebElement> toggles = driver.findElements(By.xpath(
-                    "//div[contains(@class,'oxd-table-filter')]//button | //div[contains(@class,'oxd-table-filter-header')]//button | //i[contains(@class,'bi-caret')]/ancestor::button"));
-            for (WebElement toggle : toggles) {
-                if (toggle.isDisplayed()) {
-                    com.automation.utils.ResilientActions.click(toggle);
+            List<Locator> toggles = getPage().locator("//div[contains(@class,'oxd-table-filter')]//button | //div[contains(@class,'oxd-table-filter-header')]//button | //i[contains(@class,'bi-caret')]/ancestor::button").all();
+            for (Locator toggle : toggles) {
+                if (toggle.isVisible()) {
+                    toggle.click();
                     ElementActions.pause(500);
                     break;
                 }
@@ -65,7 +64,7 @@ public abstract class OrangeHrmBasePage extends BasePage {
 
     public void waitForSpinnerToDisappear() {
         try {
-            com.automation.utils.WaitUtils.waitForSpinnersToDisappear(10);
+            // Playwright auto-waits for spinners and page load
             ElementActions.pause(300);
         } catch (Exception ignored) {
         }
@@ -73,16 +72,16 @@ public abstract class OrangeHrmBasePage extends BasePage {
 
     public void waitForPageLoad() {
         try {
-            com.automation.utils.WaitUtils.waitForPageLoad(10);
+            // Playwright auto-waits for spinners and page load
             waitForSpinnerToDisappear();
         } catch (Exception ignored) {
         }
     }
 
-    @Override
     public void validateAndHealPageElements() {
         ensureFilterPanelExpanded();
         waitForSpinnerToDisappear();
         super.validateAndHealPageElements();
     }
+
 }

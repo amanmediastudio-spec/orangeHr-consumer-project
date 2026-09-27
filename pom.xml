@@ -35,6 +35,12 @@
     </repositories>
 
     <dependencies>
+        <dependency>
+    <groupId>com.microsoft.playwright</groupId>
+    <artifactId>playwright</artifactId>
+    <version>1.45.0</version>
+        </dependency>
+
         <!-- Hardened ProGuard Obfuscated Core SDK -->
         <dependency>
             <groupId>com.automation</groupId>

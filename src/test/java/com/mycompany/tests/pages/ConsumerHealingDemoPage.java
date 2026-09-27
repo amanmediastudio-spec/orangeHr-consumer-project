@@ -1,34 +1,44 @@
 package com.mycompany.tests.pages;
 
-import com.automation.components.ButtonComponent;
-import com.automation.pages.BasePage;
-import org.openqa.selenium.By;
+import com.automation.playwright.PlaywrightBasePage;
+import com.automation.playwright.PlaywrightPageElement;
+import com.automation.playwright.components.PlaywrightButtonComponent;
 
 /**
- * Consumer Page Object demonstrating AI Self-Healing capability
- * with deliberately broken locators.
+ * Migrated Playwright Page Object strictly compliant with the Platform SDK.
+ * Original Source: ConsumerHealingDemoPage
  */
-public class ConsumerHealingDemoPage extends BasePage {
+public class ConsumerHealingDemoPage extends PlaywrightBasePage {
 
-    public ButtonComponent submitBtn;
+    // Registered Playwright Elements
+    public PlaywrightPageElement brokenUsername;
+    public PlaywrightPageElement password;
+
+    // SDK UI Components
+    public PlaywrightButtonComponent submitBtn;
 
     public ConsumerHealingDemoPage() {
         super("ConsumerHealingDemoPage");
     }
 
+    public ConsumerHealingDemoPage(String pageName) {
+        super(pageName);
+    }
+
     @Override
     protected void initElements() {
-        // Intentionally broken ID locator that will be auto-healed by the AI Healer
-        register("brokenUsername", "Username text input field", By.id("invalid_broken_consumer_user_input_99999"));
-        register("password", "Password text input field", By.name("password"));
-        register("submitBtn", "Login submit button", By.cssSelector("button[type='submit']"));
+        brokenUsername = register("brokenUsername", "Username text input field", "#invalid_broken_consumer_user_input_99999");
+        password = register("password", "Password text input field", "[name='password']");
+        register("submitBtn", "Login submit button", "button[type='submit']");
 
-        submitBtn = initComponent(ButtonComponent.class, getElement("submitBtn"));
+        // Component Initialization
+        submitBtn = initComponent(PlaywrightButtonComponent.class, "submitBtn", getElement("submitBtn"));
     }
 
     public void loginWithHealedElement(String user, String pass) {
-        sendKeys(getElement("brokenUsername"), user);
-        sendKeys(getElement("password"), pass);
-        click(getElement("submitBtn"));
+        fill(brokenUsername, user);
+        fill(password, pass);
+        click(submitBtn);
     }
+
 }
