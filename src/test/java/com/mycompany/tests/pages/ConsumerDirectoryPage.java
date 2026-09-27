@@ -1,13 +1,21 @@
 package com.mycompany.tests.pages;
 
+import com.automation.playwright.PlaywrightBasePage;
+import com.automation.playwright.PlaywrightPageElement;
 import com.automation.utils.ElementActions;
-import org.openqa.selenium.By;
 
 /**
- * Consumer Page Object for Employee Directory Module.
- * All locators are intentionally broken to validate AI Self-Healing.
+ * Migrated Playwright Page Object strictly compliant with the Platform SDK.
+ * Original Source: ConsumerDirectoryPage
  */
 public class ConsumerDirectoryPage extends OrangeHrmBasePage {
+
+    // Registered Playwright Elements
+    public PlaywrightPageElement directoryMenu;
+    public PlaywrightPageElement directoryHeader;
+    public PlaywrightPageElement directoryEmployeeName;
+    public PlaywrightPageElement searchDirectoryBtn;
+    public PlaywrightPageElement resetDirectoryBtn;
 
     public ConsumerDirectoryPage() {
         super("ConsumerDirectoryPage");
@@ -15,36 +23,32 @@ public class ConsumerDirectoryPage extends OrangeHrmBasePage {
 
     @Override
     protected void initElements() {
-        register("directoryMenu", "Directory left navigation menu item",
-                By.xpath("//span[normalize-space()='Directory'] | //a[contains(@href, 'directory')]"));
-        register("directoryHeader", "Directory section header title",
-                By.xpath("//h5[contains(.,'Directory')] | //h6[contains(.,'Directory')]"));
-        register("directoryEmployeeName", "Employee Name text input field on Directory page",
-                By.xpath("//input[@placeholder='Type for hints...']"));
-        register("searchDirectoryBtn", "Search button on directory filter form",
-                By.xpath("//button[@type='submit' and contains(.,'Search')]"));
-        register("resetDirectoryBtn", "Reset button on directory filter form",
-                By.xpath("//button[@type='button' and contains(.,'Reset')]"));
+        directoryMenu = register("directoryMenu", "Directory left navigation menu item", "//span[normalize-space()='Directory'] | //a[contains(@href, 'directory')]");
+        directoryHeader = register("directoryHeader", "Directory section header title", "//h5[contains(.,'Directory')] | //h6[contains(.,'Directory')]");
+        directoryEmployeeName = register("directoryEmployeeName", "Employee Name text input field on Directory page", "//input[@placeholder='Type for hints...']");
+        searchDirectoryBtn = register("searchDirectoryBtn", "Search button on directory filter form", "//button[@type='submit' and contains(.,'Search')]");
+        resetDirectoryBtn = register("resetDirectoryBtn", "Reset button on directory filter form", "//button[@type='button' and contains(.,'Reset')]");
     }
 
     public void navigateToDirectoryModule() {
         ensureSidepanelExpanded();
-        click(getElement("directoryMenu"));
+        click(directoryMenu);
         ensureFilterPanelExpanded();
     }
 
     public void searchEmployeeInDirectory(String empName) {
         ensureFilterPanelExpanded();
         if (empName != null && !empName.isEmpty()) {
-            sendKeys(getElement("directoryEmployeeName"), empName);
+            fill(directoryEmployeeName, empName);
         }
-        click(getElement("searchDirectoryBtn"));
+        click(searchDirectoryBtn);
         ElementActions.pause(1000);
     }
 
     public void resetDirectoryFilters() {
         ensureFilterPanelExpanded();
-        click(getElement("resetDirectoryBtn"));
+        click(resetDirectoryBtn);
         ElementActions.pause(1000);
     }
+
 }

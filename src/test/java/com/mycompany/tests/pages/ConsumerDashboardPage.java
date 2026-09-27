@@ -1,13 +1,16 @@
 package com.mycompany.tests.pages;
 
-import com.automation.driver.DriverManager;
-import com.automation.pages.BasePage;
-import org.openqa.selenium.By;
+import com.automation.playwright.PlaywrightBasePage;
+import com.automation.playwright.PlaywrightPageElement;
 
 /**
- * Consumer Project Dashboard Page Object using Core SDK components.
+ * Migrated Playwright Page Object strictly compliant with the Platform SDK.
+ * Original Source: ConsumerDashboardPage
  */
-public class ConsumerDashboardPage extends BasePage {
+public class ConsumerDashboardPage extends PlaywrightBasePage {
+
+    // Registered Playwright Elements
+    public PlaywrightPageElement dashboardHeader;
 
     public ConsumerDashboardPage() {
         super("ConsumerDashboardPage");
@@ -15,8 +18,7 @@ public class ConsumerDashboardPage extends BasePage {
 
     @Override
     protected void initElements() {
-        register("dashboardHeader", "Dashboard main title header", By.xpath(
-                "//h6[contains(normalize-space(),'Dashboard')] | //span[contains(@class,'oxd-topbar-header-breadcrumb')] | //header"));
+        dashboardHeader = register("dashboardHeader", "Dashboard main title header", "//h6[contains(normalize-space(),'Dashboard')] | //span[contains(@class,'oxd-topbar-header-breadcrumb')] | //header");
     }
 
     public boolean isDashboardLoaded() {
@@ -24,9 +26,8 @@ public class ConsumerDashboardPage extends BasePage {
             waitForVisibility(getElement("dashboardHeader"), 15);
             return true;
         } catch (Exception e) {
-            return isDisplayed(getElement("dashboardHeader")) ||
-                    (DriverManager.getDriver() != null
-                            && DriverManager.getDriver().getCurrentUrl().contains("/dashboard"));
+            return isDisplayed(getElement("dashboardHeader")) || (DriverManager.getDriver() != null && DriverManager.getDriver().getCurrentUrl().contains("/dashboard"));
         }
     }
+
 }
