@@ -1,0 +1,116 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 
+         http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.automation</groupId>
+    <artifactId>ai-powered-test-automation-platform</artifactId>
+    <version>1.2.0</version>
+    <packaging>pom</packaging>
+    <name>AI-Powered Test Automation Platform (Multi-Module)</name>
+    <description>Enterprise Test Automation Platform with AI Self-Healing Engine, Backend REST/SSE Service, and Modern Web Control Center.</description>
+
+    <developers>
+        <developer>
+            <id>parvezaman</id>
+            <name>Parvez Aman</name>
+            <email>parvezaman212@gmail.com</email>
+            <roles>
+                <role>Lead Test Automation Architect / SDET Lead</role>
+                <role>Platform Creator and Maintainer</role>
+            </roles>
+            <properties>
+                <experience>13 Years</experience>
+            </properties>
+        </developer>
+    </developers>
+
+    <modules>
+        <module>ai-automation-sdk</module>
+        <module>ai-automation-core</module>
+        <module>ai-automation-api</module>
+    </modules>
+
+    <properties>
+        <maven.compiler.source>21</maven.compiler.source>
+        <maven.compiler.target>21</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <selenium.version>4.21.0</selenium.version>
+        <playwright.version>1.45.0</playwright.version>
+        <cucumber.version>7.15.0</cucumber.version>
+        <testng.version>7.9.0</testng.version>
+        <allure.version>2.27.0</allure.version>
+        <log4j.version>2.23.1</log4j.version>
+        <aspectj.version>1.9.22</aspectj.version>
+        <thread.count>2</thread.count>
+        <license.validity.days>180</license.validity.days>
+        <maven.build.timestamp.format>yyyy-MM-dd</maven.build.timestamp.format>
+        <jackson.version>2.17.1</jackson.version>
+        <mockito.version>5.11.0</mockito.version>
+        <mysql.version>8.4.0</mysql.version>
+        <h2.version>2.3.232</h2.version>
+        <maven.test.failure.ignore>false</maven.test.failure.ignore>
+    </properties>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.automation</groupId>
+                <artifactId>ai-automation-sdk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.automation</groupId>
+                <artifactId>ai-automation-core</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.automation</groupId>
+                <artifactId>ai-automation-api</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mockito</groupId>
+                <artifactId>mockito-core</artifactId>
+                <version>${mockito.version}</version>
+                <scope>test</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>com.fasterxml.jackson</groupId>
+                <artifactId>jackson-bom</artifactId>
+                <version>${jackson.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.cucumber</groupId>
+                <artifactId>cucumber-bom</artifactId>
+                <version>${cucumber.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-bom</artifactId>
+                <version>${allure.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+    <distributionManagement>
+        <repository>
+            <id>github</id>
+            <name>GitHub Packages</name>
+            <url>https://maven.pkg.github.com/Parvez414/ai-powered-test-automation-platform</url>
+        </repository>
+        <snapshotRepository>
+            <id>github</id>
+            <name>GitHub Packages Snapshots</name>
+            <url>https://maven.pkg.github.com/Parvez414/ai-powered-test-automation-platform</url>
+        </snapshotRepository>
+    </distributionManagement>
+</project>
