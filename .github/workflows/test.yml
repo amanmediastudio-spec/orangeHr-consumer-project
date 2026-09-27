@@ -95,15 +95,15 @@ jobs:
 
       - name: Run Test Suite in Cloud CI Runner
         env:
-          GEMINI_API_KEY: ${{ github.event.inputs.gemini_api_key || secrets.GEMINI_API_KEY }}
-          OPENAI_API_KEY: ${{ github.event.inputs.openai_api_key || secrets.OPENAI_API_KEY }}
-          HEALQA_API_URL: ${{ github.event.inputs.healqa_api_url || secrets.HEALQA_API_URL }}
+          GEMINI_API_KEY: ${{ github.event.inputs.gemini_api_key || secrets['GEMINI_API_KEY'] }}
+          OPENAI_API_KEY: ${{ github.event.inputs.openai_api_key || secrets['OPENAI_API_KEY'] }}
+          HEALQA_API_URL: ${{ github.event.inputs.healqa_api_url || secrets['HEALQA_API_URL'] }}
           HEALQA_REALTIME_ENABLED: ${{ github.event.inputs.healqa_realtime_enabled || 'false' }}
-          HEALQA_API_TOKEN: ${{ github.event.inputs.healqa_api_token || secrets.HEALQA_API_TOKEN }}
+          HEALQA_API_TOKEN: ${{ github.event.inputs.healqa_api_token || secrets['HEALQA_API_TOKEN'] }}
           HEALQA_RUN_ID: ${{ github.event.inputs.healqa_run_id || github.event.inputs.healqa_execution_id || '' }}
           HEALQA_EXECUTION_ID: ${{ github.event.inputs.healqa_execution_id || github.event.inputs.healqa_run_id || '' }}
           HEALQA_EXECUTION_SOURCE: GITHUB_ACTIONS
-          PLATFORM_TELEMETRY_URL: ${{ github.event.inputs.telemetry_url || secrets.PLATFORM_TELEMETRY_URL || 'HealQA Enterprise Automation Pipeline' }}
+          PLATFORM_TELEMETRY_URL: ${{ github.event.inputs.telemetry_url || secrets['PLATFORM_TELEMETRY_URL'] || 'HealQA Enterprise Automation Pipeline' }}
           MAVEN_ARGS: ${{ github.event.inputs.maven_args }}
         run: |
           rm -rf ~/.m2/repository/com/automation
