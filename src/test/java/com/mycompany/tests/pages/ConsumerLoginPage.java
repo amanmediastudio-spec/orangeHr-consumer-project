@@ -1,39 +1,50 @@
 package com.mycompany.tests.pages;
 
-import com.automation.components.ButtonComponent;
-import com.automation.pages.BasePage;
-import org.openqa.selenium.By;
+import com.automation.playwright.PlaywrightBasePage;
+import com.automation.playwright.PlaywrightPageElement;
+import com.automation.playwright.components.PlaywrightButtonComponent;
 
 /**
- * Consumer Project Page Object:
- * Extends BasePage from the Core SDK and uses SDK UI Components directly!
+ * Migrated Playwright Page Object strictly compliant with the Platform SDK.
+ * Original Source: ConsumerLoginPage
  */
-public class ConsumerLoginPage extends BasePage {
+public class ConsumerLoginPage extends PlaywrightBasePage {
 
-    public ButtonComponent loginBtn;
+    // Registered Playwright Elements
+    public PlaywrightPageElement username;
+    public PlaywrightPageElement password;
+    public PlaywrightPageElement forgotPasswordLink;
+
+    // SDK UI Components
+    public PlaywrightButtonComponent loginBtn;
 
     public ConsumerLoginPage() {
         super("ConsumerLoginPage");
     }
 
+    public ConsumerLoginPage(String pageName) {
+        super(pageName);
+    }
+
     @Override
     protected void initElements() {
-        register("username", "Username text input field", By.name("username"));
-        register("password", "Password text input field", By.name("password"));
-        register("loginBtn", "Login submit button", By.cssSelector("button[type='submit']"));
-        register("forgotPasswordLink", "Forgot your password link on login page", By.xpath(
-                "//p[contains(@class,'orangehrm-login-forgot-header')] | //p[contains(.,'Forgot your password?')]"));
+        username = register("username", "Username text input field", "[name='username']");
+        password = register("password", "Password text input field", "[name='password']");
+        register("loginBtn", "Login submit button", "button[type='submit']");
+        forgotPasswordLink = register("forgotPasswordLink", "Forgot your password link on login page", "//p[contains(@class,'orangehrm-login-forgot-header')] | //p[contains(.,'Forgot your password?')]");
 
-        loginBtn = initComponent(ButtonComponent.class, getElement("loginBtn"));
+        // Component Initialization
+        loginBtn = initComponent(PlaywrightButtonComponent.class, "loginBtn", getElement("loginBtn"));
     }
 
     public void login(String username, String password) {
-        sendKeys(getElement("username"), username);
-        sendKeys(getElement("password"), password);
-        click(getElement("loginBtn"));
+        fill(this.username, username);
+        fill(this.password, password);
+        click(loginBtn);
     }
 
     public void clickForgotPassword() {
-        click(getElement("forgotPasswordLink"));
+        click(forgotPasswordLink);
     }
+
 }
